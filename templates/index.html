@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMDB API</title>
+</head>
+<body>
+    <h1>IMDB API</h1>
+    
+    <!-- Login Form -->
+    <h2>Login</h2>
+    <form id="loginForm" action="/login" method="POST">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+    <div id="loginMessage"></div>
+
+    <!-- Logout Button (Initially Hidden) -->
+    <h2 id="logoutHeading" style="display: none;">Logout</h2>
+    <button id="logoutButton" style="display: none;">Logout</button>
+    <div id="logoutMessage"></div>
+
+    <!-- Upload CSV Form (Initially Hidden) -->
+    <h2 id="uploadHeading" style="display: none;">Upload CSV</h2>
+    <form id="uploadForm" enctype="multipart/form-data" style="display: none;">
+        <input type="file" name="csv_file">
+        <button type="button" id="uploadButton">Upload CSV</button>
+    </form>
+    <div id="uploadMessage"></div>
+
+    <!-- Progress Tracking (Initially Hidden) -->
+    <h2 id="progressHeading" style="display: none;">Progress Tracking</h2>
+    <button type="button" id="progressButton" style="display: none;">Check Progress</button>
+    <div id="progressMessage"></div>
+
+    <!-- Movie List (Initially Hidden) -->
+    <h2 id="movieListHeading" style="display: none;">Movie List</h2>
+    <button type="button" id="movieListButton" style="display: none;">Get Movie List</button>
+    <div id="movieList"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            document.getElementById('loginMessage').innerText = data.message;
+            
+            // Show buttons after successful login
+            if (response.ok) {
+                document.getElementById('logoutHeading').style.display = 'block';
+                document.getElementById('logoutButton').style.display = 'block';
+                document.getElementById('uploadHeading').style.display = 'block';
+                document.getElementById('uploadForm').style.display = 'block';
+                document.getElementById('progressHeading').style.display = 'block';
+                document.getElementById('progressButton').style.display = 'block';
+                document.getElementById('movieListHeading').style.display = 'block';
+                document.getElementById('movieListButton').style.display = 'block';
+            }
+        });
+
+        // Logout Button
+        document.getElementById('logoutButton').addEventListener('click', async () => {
+            const response = await fetch('/logout');
+            const data = await response.json();
+            document.getElementById('logoutMessage').innerText = data.message;
+            
+            // Hide buttons after logout
+            if (response.ok) {
+                document.getElementById('logoutHeading').style.display = 'none';
+                document.getElementById('logoutButton').style.display = 'none';
+                document.getElementById('uploadHeading').style.display = 'none';
+                document.getElementById('uploadForm').style.display = 'none';
+                document.getElementById('progressHeading').style.display = 'none';
+                document.getElementById('progressButton').style.display = 'none';
+                document.getElementById('movieListHeading').style.display = 'none';
+                document.getElementById('movieListButton').style.display = 'none';
+            }
+        });
+        
+        // Other button event listeners...
+    </script>
+</body>
+</html>

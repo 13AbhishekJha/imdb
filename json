@@ -1,0 +1,50 @@
+{
+  "collections": [
+    {
+      "name": "users",
+      "schema": {
+        "username": "string",
+        "password": "string"
+      },
+      "indexes": [
+        {
+          "keys": {
+            "username": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "movies",
+      "schema": {
+        "show_id": "string",
+        "type": "string",
+        "title": "string",
+        "director": "string",
+        "cast": "string",
+        "country": "string",
+        "date_added": "string",
+        "release_year": "number",
+        "rating": "string",
+        "duration": "string",
+        "listed_in": "string",
+        "description": "string"
+      },
+      "indexes": [
+        {
+          "keys": {
+            "title": 1
+          },
+          "unique": false
+        },
+        {
+          "keys": {
+            "release_year": 1
+          },
+          "unique": false
+        }
+      ]
+    }
+  ]
+}
